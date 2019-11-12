@@ -1,0 +1,57 @@
+###################################################
+#  The Bomb !!!
+################################################### 
+Below are instructions on how to compile and run the program. When the program 
+is run, you should see the text 'TICK' written in the shell every second. If 
+you press the buttons you will see the text 'UP', 'DOWN' and 'ARM'. These are 
+the events that the state machine receives. You will use the terminal as
+display and implement your own state machine in the file:
+
+state_handling/BombStateMachine.cpp
+
+Happy coding...
+
+
+###################################################
+#  Disable virtual swipe
+###################################################
+Since we will be using the buttons, you should first stop the virtual_swipe
+daemon running on the zybo.
+
+1.  ZYBO> pkill virtual_swipe
+
+
+###################################################
+#  Cross compile on your laptop under linux:
+###################################################
+You will need to change the absolute paths in bomb/src/zynq.cmake to fit your
+own installation of the cross-compiler. If you want to import as makefile
+projest in eclipse add this before ../src in step 4: 
+-G "Eclipse CDT4 - Unix Makefiles"
+
+1.  PC> cd ???/bomb
+2.  PC> mkdir build
+3.  PC> cd build
+4.  PC> cmake -D CMAKE_TOOLCHAIN_FILE=../src/zynq.cmake ../src
+5.  PC> make
+6.  PC> scp Bomb root@zybo.local:
+7.  PC> ssh root@zybo.local
+8.  ZYBO> ./Bomb
+
+
+###################################################
+#  Compile on the zybo:
+###################################################
+You will need internet on the zybo since cmake is not installed. If you are on
+windows you can transfer the files (step 1) with filezilla.
+
+1.  PC> scp -r ???/bomb root@zybo.local:
+2.	PC> ssh root@zybo.local
+2.  ZYBO> apt install cmake
+3.  ZYBO> cd bomb
+4.  ZYBO> mkdir build
+5.  ZYBO> cd build
+6.  ZYBO> cmake ../src
+7.  ZYBO> make
+8.  ZYBO> ./bomb
+
